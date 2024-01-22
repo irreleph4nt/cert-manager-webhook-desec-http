@@ -26,8 +26,10 @@ service:
   type: ClusterIP
   port: 443
 
+# Used to generate a role binding that allows the webhook app
+# to read the secret with the token for accessing deSEC
 secretName:
-- cert-manager-desec-http-secret
+- desec-access-token
 
 resources:
   limits:

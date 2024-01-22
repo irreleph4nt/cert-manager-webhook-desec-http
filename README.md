@@ -29,7 +29,7 @@ spec:
     email: <YOUR ACME E-MAIL ADDRESS>
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: cert-manager-desec-http-secret
+      name: acme-account
     solvers:
     - dns01:
         webhook:
@@ -38,7 +38,7 @@ spec:
           config:
             apiUrl: https://desec.io/api/v1
             domainName: <YOUR DNS ZONE>
-            secretName: cert-domain-tls-key-<YOUR DNS ZONE>
+            secretName: desec-access-token
             secretKeyName: desec-token
 ```
 
@@ -48,7 +48,7 @@ apiVersion: v1
 kind: Secret
 type: Opaque
 metadata:
-  name: cert-domain-tls-key-<DNS ZONE>
+  name: desec-access-token
   namespace: cert-manager
 stringData:
   desec-token: <YOUR DESEC TOKEN>
@@ -77,7 +77,7 @@ service:
   port: 443
 
 secretName:
-- cert-domain-tls-key-<YOUR DNS ZONE>
+- desec-access-token
 
 resources:
   limits:
